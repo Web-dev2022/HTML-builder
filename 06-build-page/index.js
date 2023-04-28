@@ -109,9 +109,11 @@ function copyFolderAssets() {
       if (err) throw err;
       pathTwo = 'assets';
       files.forEach(file => {
-        folderName = file;
-        makeFolder(pathOne, pathTwo, folderName);
-        copyFiles(folderName);
+        if (file !== '.DS_Store') {
+          folderName = file;
+          makeFolder(pathOne, pathTwo, folderName);
+          copyFiles(folderName);
+        }
       });
   });
 }

@@ -13,25 +13,27 @@ fs.readdir(
   (err, files) => {
     if (err) throw err;
     files.forEach(file => {
-      fs.stat(
-        path.join(__dirname, 'styles', file), function(err, stats) {
-        if (stats.isFile() && path.extname(file) == '.css') {
-          fs.readFile(
-            path.join(__dirname, 'styles', file),
-            'utf-8',
-            (err, data) => {
-                if (err) throw err;
-                fs.appendFile(
-                  path.join(__dirname, 'project-dist', 'bundle.css'),
-                  data,
-                  err => {
-                      if (err) throw err;
-                  }
-              );
-            }
-          );
-        }
-      });
+      if (file !== '.DS_Store') {
+        fs.stat(
+          path.join(__dirname, 'styles', file), function(err, stats) {
+          if (stats.isFile() && path.extname(file) == '.css') {
+            fs.readFile(
+              path.join(__dirname, 'styles', file),
+              'utf-8',
+              (err, data) => {
+                  if (err) throw err;
+                  fs.appendFile(
+                    path.join(__dirname, 'project-dist', 'bundle.css'),
+                    data,
+                    err => {
+                        if (err) throw err;
+                    }
+                );
+              }
+            );
+          }
+        });
+      }
     })
 });
 
